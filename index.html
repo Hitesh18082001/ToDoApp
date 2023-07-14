@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Todo List</title>
+  <style>
+    /* Add some basic styles to improve the appearance */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      display: flex;
+      align-items: center;
+    }
+
+    h1 img {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    #taskInput {
+      margin-bottom: 10px;
+    }
+
+    #taskList li {
+      margin-bottom: 5px;
+    }
+
+    .deleteButton {
+      margin-left: 5px;
+      padding: 2px 5px;
+      background-color: #ff0000;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1><img src="logo.png" alt="Logo">My Todo List</h1>
+
+    <div class="input-box">
+      <input type="text" id="taskInput" placeholder="Enter a new task...">
+      <button id="addButton">Add Task</button>
+      
+    </div>
+
+    <div class="date">
+      <p id="date"></p>
+      <p id="pendingTasks"></p>
+
+    </div>
+ 
+
+    
+
+    <ul id="taskList"></ul>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
