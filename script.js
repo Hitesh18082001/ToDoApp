@@ -71,7 +71,7 @@ function fetchData() {
         // Extract "id" and "title" properties and create a new array
         tasks = data.map(item => ({
           id: item.id,
-          name: item.title.length > 40 ? item.title.substring(0, 36) + '...' : item.title
+          name: item.title
         }));
         console.log(tasks);
         updateTaskList();
@@ -96,14 +96,56 @@ function fetchData() {
     // Loop through each task and create an <li> element for it
     tasks.forEach(task => {
       const li = document.createElement('li');
-      li.textContent = task.name;
+      // li.textContent = task.name;
+      // const originalTask=task.name;
+      const taskText = document.createElement("span");
+      taskText.textContent = task.name.substring(0, 35); 
+      const taskInput = document.createElement("input");
+      taskInput.classList.add('taskInput');
+      taskInput.type = "text";
+      taskInput.value = task.name;
+      taskInput.style.display = "none";
   
+      const editButton = document.createElement("button");
+      editButton.textContent = "Edit";
+      editButton.classList.add('editButton');
+      editButton.addEventListener("click", () => {
+        if (editButton.textContent === "Save") {
+          taskText.style.display = "inline-block";
+          taskInput.style.display = "none";
+         
+          const taskIdx = tasks.findIndex(tsk => tsk.id === task.id);
+          if (taskIdx !== -1) {
+            task.name=taskInput.value;
+          }
+          taskText.textContent = taskInput.value.substring(0, 35);
+          editButton.textContent = "Edit";
+        }
+        else{
+          taskText.style.display = "none";
+          taskInput.style.display = "inline-block";
+          taskInput.focus();
+          editButton.textContent="Save";
+        }
+      });
+      
+     
       const deleteButton = document.createElement('button');
       deleteButton.textContent = 'Delete';
       deleteButton.classList.add('deleteButton');
       deleteButton.addEventListener('click', () => deleteTask(task.id));
+
+      editButton.addEventListener("click", () => {
+        
+      });
   
+
+
+      li.appendChild(taskText);
+      li.appendChild(taskInput);
+      li.appendChild(editButton);
       li.appendChild(deleteButton);
+      
       taskList.appendChild(li);
     });
   

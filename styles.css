@@ -119,6 +119,21 @@ h1 img {
   align-items: center;
   justify-content: space-between;
 }
+.editButton {
+  padding: 2px 5px;
+  background-color: #33b249;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+  width: fit-content;
+}
+.editButton:hover {
+
+  background-color: rgba(17,177,229,255);
+  color: #ffffff;
+
+}
 
 .deleteButton {
   padding: 2px 5px;
@@ -126,7 +141,7 @@ h1 img {
   color: #ffffff;
   border: none;
   cursor: pointer;
-  margin-left: auto;
+  /* margin-left: auto; */
   width: fit-content;
 }
 .deleteButton:hover {
@@ -135,6 +150,13 @@ h1 img {
   color: #ffffff;
 
 }
+
+.taskInput{
+  width:400px;
+  height: 50px;
+  font-size: 34px;
+}
+
 @media (max-width: 1000px) {
   .container{
     margin: 0px;
@@ -180,6 +202,9 @@ h1 img {
    
   }
   .deleteButton {
+    font-size: 28px;
+  }
+  .editButton {
     font-size: 28px;
   }
   
