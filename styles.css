@@ -17,11 +17,11 @@ body {
 }
 
 h1 {
-  font-size:48px;
+  font-size: 48px;
   display: flex;
   align-items: center;
   text-decoration: underline;
-  color: rgba(17,177,229,255);
+  color: rgba(17, 177, 229, 255);
   margin-left: auto;
   margin-right: auto;
 }
@@ -32,7 +32,8 @@ h1 img {
   margin-right: 10px;
   border-radius: 6px;
 }
-.input-box{
+
+.input-box {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -56,14 +57,14 @@ h1 img {
 }
 
 #taskInput:focus {
-  border: 2px solid rgba(17,177,229,255);
+  border: 2px solid rgba(17, 177, 229, 255);
   outline: none;
 }
 
 #addButton {
   padding: 10px 20px;
   background-color: white;
-  color: rgba(17,177,229,255);
+  color: rgba(17, 177, 229, 255);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -71,8 +72,8 @@ h1 img {
 }
 
 #addButton:hover {
-  color:white;
-  background-color: rgba(17,177,229,255);
+  color: white;
+  background-color: rgba(17, 177, 229, 255);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -82,21 +83,23 @@ h1 img {
 
 .date {
   margin-left: 50px;
-  background-color: rgba(12,167,220,255);
-  color:#eff1f2;
+  background-color: rgba(12, 167, 220, 255);
+  color: #eff1f2;
   font-weight: bold;
   padding: 2px 8px;
   border-radius: 5px;
   font-size: 26px;
   margin-bottom: 50px;
 }
+
 #pendingTasks {
-  color:#eff1f2;
+  color: #eff1f2;
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 22px;
   margin-bottom: 10px;
 }
+
 #taskList {
   list-style-type: none;
   padding: 0;
@@ -105,7 +108,7 @@ h1 img {
   align-items: center;
   margin-left: auto;
   margin-right: auto;
-  
+
 }
 
 #taskList li {
@@ -119,6 +122,7 @@ h1 img {
   align-items: center;
   justify-content: space-between;
 }
+
 .editButton {
   padding: 2px 5px;
   background-color: #33b249;
@@ -128,9 +132,10 @@ h1 img {
   margin-left: auto;
   width: fit-content;
 }
+
 .editButton:hover {
 
-  background-color: rgba(17,177,229,255);
+  background-color: rgba(17, 177, 229, 255);
   color: #ffffff;
 
 }
@@ -144,28 +149,31 @@ h1 img {
   /* margin-left: auto; */
   width: fit-content;
 }
+
 .deleteButton:hover {
 
-  background-color: rgba(17,177,229,255);
+  background-color: rgba(17, 177, 229, 255);
   color: #ffffff;
 
 }
 
-.taskInput{
-  width:400px;
+.taskInput {
+  width: 400px;
   height: 50px;
   font-size: 34px;
 }
 
 @media (max-width: 1000px) {
-  .container{
+  .container {
     margin: 0px;
     padding: 0;
 
   }
-  h1{
+
+  h1 {
     font-size: 84px;
   }
+
   #taskInput {
     margin-left: 20px;
     margin-right: 20px;
@@ -174,24 +182,28 @@ h1 img {
     font-size: 38px;
     margin-bottom: 20px;
   }
+
   #addButton {
     font-size: 46px;
     margin-bottom: 50px;
   }
+
   .date {
     margin-left: auto;
     margin-right: auto;
     padding: 2px 8px;
     font-size: 56px;
   }
+
   #pendingTasks {
-  
+
     padding: 5px 10px;
     font-size: 56px;
     margin-bottom: 10px;
   }
+
   #taskList li {
-    width: 800px; 
+    width: 800px;
     padding-bottom: 5px;
     margin-bottom: 35px;
     font-size: 34px;
@@ -199,15 +211,17 @@ h1 img {
     align-items: center;
     justify-content: space-between;
     margin-right: auto;
-   
+
   }
+
   .deleteButton {
     font-size: 28px;
   }
+
   .editButton {
     font-size: 28px;
   }
-  
+
 
 
 }

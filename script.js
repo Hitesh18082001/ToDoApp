@@ -7,7 +7,7 @@ const pendingTasksElement = document.getElementById('pendingTasks');
 
 
 let tasks = [];
-var hasFetchedData=false;
+var hasFetchedData = false;
 
 
 function addTask() {
@@ -35,7 +35,7 @@ function addTask() {
 
 
 function deleteTask(taskId) {
- 
+
   const taskIndex = tasks.findIndex(task => task.id === taskId);
 
   if (taskIndex !== -1) {
@@ -63,96 +63,94 @@ taskInput.addEventListener('keydown', event => {
 });
 
 function fetchData() {
- 
-    fetch('https://jsonplaceholder.typicode.com/todos')
-      .then(response => response.json())
-      .then(data => {
-        
-        // Extract "id" and "title" properties and create a new array
-        tasks = data.map(item => ({
-          id: item.id,
-          name: item.title
-        }));
-        console.log(tasks);
-        updateTaskList();
-      })
-      .catch(error => {
-        console.log('Error:', error);
-      });
-    //   console.log(tasks);
-      
-  }
-  
-  function initialize() {
-    if (!hasFetchedData) {
-      fetchData();
-      hasFetchedData=true;
-    }
-  }
-  function updateTaskList() {
-    // Clear the existing task list
-    taskList.innerHTML = '';
-  
-    // Loop through each task and create an <li> element for it
-    tasks.forEach(task => {
-      const li = document.createElement('li');
-      // li.textContent = task.name;
-      // const originalTask=task.name;
-      const taskText = document.createElement("span");
-      taskText.textContent = task.name.substring(0, 35); 
-      const taskInput = document.createElement("input");
-      taskInput.classList.add('taskInput');
-      taskInput.type = "text";
-      taskInput.value = task.name;
-      taskInput.style.display = "none";
-  
-      const editButton = document.createElement("button");
-      editButton.textContent = "Edit";
-      editButton.classList.add('editButton');
-      editButton.addEventListener("click", () => {
-        if (editButton.textContent === "Save") {
-          taskText.style.display = "inline-block";
-          taskInput.style.display = "none";
-         
-          const taskIdx = tasks.findIndex(tsk => tsk.id === task.id);
-          if (taskIdx !== -1) {
-            task.name=taskInput.value;
-          }
-          taskText.textContent = taskInput.value.substring(0, 35);
-          editButton.textContent = "Edit";
-        }
-        else{
-          taskText.style.display = "none";
-          taskInput.style.display = "inline-block";
-          taskInput.focus();
-          editButton.textContent="Save";
-        }
-      });
-      
-     
-      const deleteButton = document.createElement('button');
-      deleteButton.textContent = 'Delete';
-      deleteButton.classList.add('deleteButton');
-      deleteButton.addEventListener('click', () => deleteTask(task.id));
 
-      editButton.addEventListener("click", () => {
-        
-      });
-  
+  fetch('https://jsonplaceholder.typicode.com/todos')
+    .then(response => response.json())
+    .then(data => {
 
 
-      li.appendChild(taskText);
-      li.appendChild(taskInput);
-      li.appendChild(editButton);
-      li.appendChild(deleteButton);
-      
-      taskList.appendChild(li);
+      tasks = data.map(item => ({
+        id: item.id,
+        name: item.title
+      }));
+      console.log(tasks);
+      updateTaskList();
+    })
+    .catch(error => {
+      console.log('Error:', error);
     });
-  
-    pendingTasksElement.textContent = `Pending Tasks: ${tasks.length}`;
-    console.log(tasks.length);
+
+}
+
+function initialize() {
+  if (!hasFetchedData) {
+    fetchData();
+    hasFetchedData = true;
   }
-  
+}
+function updateTaskList() {
+
+  taskList.innerHTML = '';
+
+
+  tasks.forEach(task => {
+    const li = document.createElement('li');
+
+    const taskText = document.createElement("span");
+    taskText.textContent = task.name.substring(0, 35);
+    const taskInput = document.createElement("input");
+    taskInput.classList.add('taskInput');
+    taskInput.type = "text";
+    taskInput.value = task.name;
+    taskInput.style.display = "none";
+
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit";
+    editButton.classList.add('editButton');
+    editButton.addEventListener("click", () => {
+      if (editButton.textContent === "Save") {
+        taskText.style.display = "inline-block";
+        taskInput.style.display = "none";
+
+        const taskIdx = tasks.findIndex(tsk => tsk.id === task.id);
+        if (taskIdx !== -1) {
+          task.name = taskInput.value;
+        }
+        taskText.textContent = taskInput.value.substring(0, 35);
+        editButton.textContent = "Edit";
+      }
+      else {
+        taskText.style.display = "none";
+        taskInput.style.display = "inline-block";
+        taskInput.focus();
+        editButton.textContent = "Save";
+      }
+    });
+
+
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.classList.add('deleteButton');
+    deleteButton.addEventListener('click', () => deleteTask(task.id));
+
+    editButton.addEventListener("click", () => {
+
+    });
+
+
+
+    li.appendChild(taskText);
+    li.appendChild(taskInput);
+    li.appendChild(editButton);
+    li.appendChild(deleteButton);
+
+    taskList.appendChild(li);
+  });
+
+  pendingTasksElement.textContent = `Pending Tasks: ${tasks.length}`;
+  console.log(tasks.length);
+}
+
 initialize();
 updateDate();
 updateTaskList();
