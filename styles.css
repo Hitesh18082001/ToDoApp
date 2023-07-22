@@ -41,6 +41,99 @@ h1 img {
   margin-right: auto;
 }
 
+.filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.add-filters {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+  margin-right: 40px;
+}
+.filter-button{
+  margin-top: 15px;
+}
+#filterButton{
+  margin-right: 10px;
+}
+.add-filters select,
+#filterDueDateInput {
+  margin-right: 10px;
+  padding: 8px;
+  font-size: 14px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+.add-filters select:focus,
+#filterDueDateInput:focus {
+  border-color: #007bff;
+}
+
+#filterButton,
+#removeFilterButton {
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: rgba(17, 177, 229, 255);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#filterButton:hover,
+#removeFilterButton:hover {
+  background-color: #0056b3;
+}
+
+.sort select,
+.logs select {
+  padding: 8px;
+  font-size: 14px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  margin-right: 40px;
+}
+
+.sort select:focus,
+.logs select:focus {
+  border-color: #007bff;
+}
+
+.sort label,
+.logs label {
+  margin-right: 10px;
+}
+
+/* Adjust the layout for responsiveness */
+@media screen and (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .add-filters,
+  .sort,
+  .logs {
+    margin-bottom: 10px;
+  }
+}
+
+
+.tagstyle {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
 #taskInput {
   /* display: flex;
   align-items: center; */
@@ -61,7 +154,104 @@ h1 img {
   outline: none;
 }
 
+#categoryDropdown {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  outline: none;
+}
+
+/* Style for the placeholder option */
+#categoryDropdown option[disabled]:first-child {
+  color: #999;
+}
+
+
+/* Style for the dropdown arrow */
+#categoryDropdown::after {
+  content: "\25BC";
+  /* Unicode character for the down arrow */
+  font-size: 14px;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#priorityDropdown {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  outline: none;
+}
+
+
+#priorityDropdown::after {
+  content: "\25BC";
+  /* Unicode character for the down arrow */
+  font-size: 14px;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#tagDropdown {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  outline: none;
+  height: 65px;
+}
+
+#dueDateInput {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  outline: none;
+}
+
+
+#dueDateInput::after {
+  content: "\25BC";
+  /* Unicode character for the down arrow */
+  font-size: 14px;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
 #addButton {
+  padding: 10px 20px;
+  background-color: rgba(17, 177, 229, 255);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+#addButton:hover {
+  color: white;
+  background-color: #0056b3;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#addButton:focus {
+  outline: none;
+}
+#addNewTagButton{
   padding: 10px 20px;
   background-color: white;
   color: rgba(17, 177, 229, 255);
@@ -69,17 +259,54 @@ h1 img {
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-}
+  /* margin-top: 20px; */
 
-#addButton:hover {
+}
+#addNewTagButton:hover {
   color: white;
   background-color: rgba(17, 177, 229, 255);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-
-#addButton:focus {
-  outline: none;
+#searchbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
 }
+
+#searchInput {
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  width: 300px;
+}
+
+#searchInput:focus {
+  border-color: rgba(17, 177, 229, 255);
+}
+
+#searchButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: rgba(17, 177, 229, 255);
+  color:white ;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#searchButton:hover {
+  color:white;
+  background-color: #0056b3;
+}
+
+
 
 .date {
   margin-left: 50px;
@@ -90,6 +317,7 @@ h1 img {
   border-radius: 5px;
   font-size: 26px;
   margin-bottom: 50px;
+  margin-top: 70px;
 }
 
 #pendingTasks {
@@ -98,6 +326,11 @@ h1 img {
   border-radius: 5px;
   font-size: 22px;
   margin-bottom: 10px;
+}
+
+.filter {
+  display: flex;
+  align-items: center;
 }
 
 #taskList {
@@ -116,11 +349,24 @@ h1 img {
   padding-bottom: 5px;
   margin-bottom: 15px;
   font-size: 28px;
-  width: 600px;
+  width: 900px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.subtask-container {
+  display: none;
+  padding-left: 20px;
+  margin-top: 5px;
+}
+
+.subtask-container input {
+  margin-right: 5px;
+}
+
+.subtask-container button {
+  margin-top: 5px;
 }
 
 .editButton {
@@ -129,11 +375,30 @@ h1 img {
   color: #ffffff;
   border: none;
   cursor: pointer;
-  margin-left: auto;
+  margin-left: 5px;
   width: fit-content;
 }
 
 .editButton:hover {
+
+  background-color: rgba(17, 177, 229, 255);
+  color: #ffffff;
+
+}
+
+
+.notifyButton {
+  padding: 2px 5px;
+  background-color: #480906;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+  width: fit-content;
+
+}
+
+.notifyButton:hover {
 
   background-color: rgba(17, 177, 229, 255);
   color: #ffffff;
@@ -156,12 +421,133 @@ h1 img {
   color: #ffffff;
 
 }
+.subtaskItem{
+  display: flex;
+  justify-content: space-between;
+}
+.delete-button{
+  padding: 2px 5px;
+  background-color: #ff0000;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  align-items: flex-end;
+  width: fit-content;
+  margin-left: 250px;
+}
+
+
+.delete-button:hover {
+
+  background-color: rgba(17, 177, 229, 255);
+  color: #ffffff;
+
+}
+
+
+.pendingButton {
+  padding: 2px 5px;
+  background-color: #ff0000;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  /* margin-left: auto; */
+  margin-left: 5px;
+  width: fit-content;
+}
+
+.pendingButton:hover {
+
+  background-color: rgba(17, 177, 229, 255);
+  color: #ffffff;
+
+}
+
+.completeButton {
+  padding: 2px 5px;
+  background-color: green;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+  /* margin-left: auto; */
+  width: fit-content;
+}
+
+.completeButton:hover {
+
+  background-color: rgba(17, 177, 229, 255);
+  color: #ffffff;
+
+}
 
 .taskInput {
   width: 400px;
   height: 50px;
   font-size: 34px;
 }
+.downArrowButton{
+  background-color: rgba(17, 177, 229, 255);
+  padding: 2px 5px;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  /* margin-left: 5px; */
+  margin-left: auto;
+  width: fit-content;
+}
+.downArrowButton:hover{
+  background-color: #007bff;
+}
+
+/* Styles for the subtask container */
+.subtask-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 20px;
+}
+
+/* Styles for the subtask divs */
+.subtask {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 8px;
+  margin: 5px 0; 
+  display: block;
+  text-align: left;
+}
+
+/* Styles for the input box */
+.newSubtask {
+  width: 99%;
+  padding: 8px;
+  margin-bottom: 10px;
+  /* text-align: center; */
+}
+
+/* Styles for the add button */
+.addSubtaskButton {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.addSubtaskButton:hover {
+  background-color: #45a049;
+}
+.lastDiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.dueDateDiv{
+  display: flex;
+  justify-content: space-between;
+}
+
+
 
 @media (max-width: 1000px) {
   .container {

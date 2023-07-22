@@ -47,18 +47,118 @@
 
     <div class="input-box">
       <input type="text" id="taskInput" placeholder="Enter a new task...">
+      <div class="features">
+
+        <select id="categoryDropdown">
+          <option value="" disabled selected>Select a category</option>
+          <option value="personal">Personal</option>
+          <option value="work">Work</option>
+          <option value="shopping">Shopping</option>
+          <option value="health">Health</option>
+          <option value="events">Event</option>
+          <option value="emails">Emails</option>
+          <option value="meeting">Meeting</option>
+          <option value="client">Client</option>
+          <option value="hobbies">Hobbies</option>
+
+        </select>
+        <select id="priorityDropdown">
+          <option value="" disabled selected>Priority</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+
+        </select>
+
+        <input type="date" id="dueDateInput" min="" required placeholder="due date">
+        <div class="tagstyle">
+          <button id="addNewTagButton">Add New Tag</button>
+          <select id="tagDropdown" multiple>
+          </select>
+        </div>
+
+
+
+
+
+      </div>
+      <div id="selectedTagsContainer">
+      </div>
       <button id="addButton">Add Task</button>
+
+    </div>
+
+    <div id="searchbox">
+      <input type="text" id="searchInput" placeholder="Search...">
+      <button id="searchButton">Search</button>
+    </div>
+
+
+
+
+
+
+    <div class="filters">
+      <div class="filterinnerclass">
+        <div class="add-filters">
+          <select id="filterCategoryDropdown">
+            <option value="" disabled selected>Select a category</option>
+            <option value="personal">Personal</option>
+            <option value="work">Work</option>
+            <option value="shopping">Shopping</option>
+            <option value="health">Health</option>
+            <option value="events">Event</option>
+            <option value="emails">Emails</option>
+            <option value="meeting">Meeting</option>
+            <option value="client">Client</option>
+            <option value="hobbies">Hobbies</option>
+
+          </select>
+          <select id="filterPriorityDropdown">
+            <option value="" disabled selected>Priority</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+
+          </select>
+
+          <input type="date" id="filterDueDateInput" min="" required placeholder="due date">
+        </div>
+        <div class="filter-button">
+          <button id="filterButton">Add Filter</button>
+          <button id="removeFilterButton">Reset Filter</button>
+        </div>
+      </div>
+      <div class="sort">
+        <label for="sortOption">Sort By:</label>
+        <select id="sortOption" onchange="handleSortChange()">
+          <option value="">None</option>
+          <option value="duedate">Due Date</option>
+          <option value="priority">Priority</option>
+        </select>
+
+      </div>
+      <div class="logs">
+        <label for="logOption">View Logs:</label>
+        <select id="logOption" onchange="handleLogChange()">
+          <option value="">All</option>
+          <option value="missed">Missed</option>
+          <option value="pending">Pending</option>
+          <option value="completed">Completed</option>
+        </select>
+
+      </div>
+
+
+
+
 
     </div>
 
     <div class="date">
       <p id="date"></p>
       <p id="pendingTasks"></p>
-
     </div>
-
-
-
 
     <ul id="taskList"></ul>
 
