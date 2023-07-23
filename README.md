@@ -8,3 +8,5 @@ Cogoport Training Assignment TODO-APP
 * You can find a input box on the top to write the name of task.
 * Below this you have dropdown menu to add category,Priority and Due Date.
 * Below this you have a list of tags that you can add to your task for better manangement of tasks. you can add a new tag to this list by clicking on the add new tag button, and once you add a new tag to this list, this tag will be stored and when you add a new task next time, you have option to choose those previously added tags. You can choose multiple tags and once a tag is selected it will be shown below this list with a cross button to remove it.
+### Search be keywords
+* You have option to search a particular task by name or keywords from the name or tags or subtasks. All those tasks which have that keyword will be renderedd on the screen
