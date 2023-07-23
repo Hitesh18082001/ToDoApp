@@ -9,6 +9,39 @@ dueDateInput.min = new Date().toISOString().split("T")[0];
 const filterButton = document.getElementById('filterButton');
 const removeFilterButton = document.getElementById('removeFilterButton');
 
+///function for updating local storage///////////////////////////////////////////////////////////
+function updateLocalStorage() {
+  localStorage.removeItem('todoList');
+  console.log(tasks);
+  var data = JSON.stringify(tasks);
+  localStorage.setItem("todoList", data);
+  updateTaskList();
+};
+
+
+
+//Section To Generate Unique IDs For Every Task//////////////////////////////////////////////////
+function generateRandomString(length) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  const charactersLength = characters.length;
+
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+
+  return result;
+}
+
+function generateUniqueID() {
+  const randomString = generateRandomString(8);
+  const timestamp = Date.now().toString(36);
+  return randomString + timestamp;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 var tasks = [];
 var hasFetchedData = false;
@@ -16,6 +49,63 @@ var tags = [];
 var selectedTags = [];
 
 
+
+
+
+//Section to fetch tasks from API's if there is no data in localstorage or data being fetched first time
+
+function fetchData() {
+
+  fetch('https://jsonplaceholder.typicode.com/todos')
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(task => {
+        todosCount += 1;
+        var UniqueId = generateUniqueID();
+        let newTodo = {
+          name: task['title'],
+          id: UniqueId,
+          isComplete: false,
+          Category: "All",
+          Priority: "",
+          DueDate: "",
+          Tags: [],
+          SubTasks: [],
+          ReminderTime: 0,
+        };
+        tasks.push(newTodo);
+      })
+      updateTaskList();
+      updateLocalStorage();
+
+    })
+    .catch(error => {
+      console.log('Error:', error);
+    });
+  hasFetchedData = true;
+  updateLocalStorage();
+
+}
+///fetching Tasks from localstorage
+function getTodoListFromLocalStorage() {
+  let stringifiedTodoList = localStorage.getItem("todoList");
+  let parsedTodoList = JSON.parse(stringifiedTodoList);
+  if (parsedTodoList === null) {
+
+    return [];
+  } else {
+
+    return parsedTodoList;
+  }
+}
+
+tasks = getTodoListFromLocalStorage();
+let todosCount = tasks.length;
+if (!tasks.length && !hasFetchedData) {
+  fetchData();
+}
+
+//Section to rerender dropdown after performing a action//////////////////////////
 function renderCategoryDropdown() {
   const categoryDropdown = document.getElementById("categoryDropdown");
   categoryDropdown.value = "";
@@ -37,7 +127,9 @@ function renderFilterPriorityDropdown() {
   categoryDropdown.value = "";
 
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//Section for adding filters functionality ////////////////////////////////////////////////////
 function addFilters() {
 
   const filterDate = document.getElementById("filterDueDateInput");
@@ -53,17 +145,17 @@ function addFilters() {
 
   var filteredTask = [];
   tasks.forEach(task => {
-    // console.log(task.Category);
-    if (task.Category === category || task.Category === 'All' || task.Category === "" || category === "") {
+
+    if (task.Category === category || category === "" || category === "All") {
       filteredTask.push(task);
-      // console.log('hi');
+
     }
   })
   var flag = filteredTask;
   console.log(flag);
   filteredTask = [];
   flag.forEach(task => {
-    if (task.Priority === priority || task.Priority === "" || priority === "") {
+    if (task.Priority === priority || priority === "") {
       filteredTask.push(task);
     }
 
@@ -74,15 +166,14 @@ function addFilters() {
   filteredTask = [];
   flag.forEach(task => {
     if (task.DueDate === "") {
-      filteredTask.push(task);
+      // filteredTask.push(task);
     }
-    else if(dueDate==="")
-    {
+    else if (dueDate === "") {
       filteredTask.push(task);
     }
     else {
-      const date1=new Date(task.DueDate);
-      const date2=new Date(dueDate);
+      const date1 = new Date(task.DueDate);
+      const date2 = new Date(dueDate);
       if (date1 <= date2) {
         filteredTask.push(task);
       }
@@ -104,13 +195,13 @@ function removeFilters() {
 filterButton.addEventListener("click", () => addFilters());
 removeFilterButton.addEventListener("click", () => removeFilters());
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
-
-
+///Section to add sorting functionality////////////////////////////////////////////////////////////////////////
 function compareDueDate(task1, task2) {
-  // Handle empty due dates by treating them as the maximum date (sort to the end)
+  // empty due dates treated as maximum date 
   const date1 = task1.DueDate ? new Date(task1.DueDate) : new Date("9999-12-31");
   const date2 = task2.DueDate ? new Date(task2.DueDate) : new Date("9999-12-31");
   console.log(date1 - date2);
@@ -138,6 +229,7 @@ function prioritySort() {
 
 }
 
+
 function handleSortChange() {
   const sortOption = document.getElementById("sortOption").value;
   if (sortOption === "duedate") {
@@ -154,7 +246,11 @@ function handleSortChange() {
 
 
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+
+//section for handling View logs functionality
 function handleLogChange() {
   const logOption = document.getElementById("logOption").value;
   var logTasks = [];
@@ -197,21 +293,16 @@ function handleLogChange() {
   updateTaskList(logTasks);
 
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
 
 
-function updateLocalStorage() {
-  localStorage.removeItem('todoList');
-  console.log(tasks);
-  var data = JSON.stringify(tasks);
-  localStorage.setItem("todoList", data);
-  updateTaskList();
-};
 
 
-// Function to render the dropdown menu with tags
+// Section to render the dropdown menu with tags
+
 function renderTagDropdown() {
   const tagDropdown = document.getElementById("tagDropdown");
   tagDropdown.innerHTML = ""; // Clear existing options
@@ -228,14 +319,12 @@ function renderTagDropdown() {
 function displaySelectedTags(selectedTags) {
   const selectedTagsContainer = document.getElementById("selectedTagsContainer");
   selectedTagsContainer.innerHTML = "";
-  // console.log("length",selectedTags.length);
-  // console.log(selectedTags);
   selectedTags.forEach(tag => {
 
     const tagItem = document.createElement("span");
     tagItem.textContent = tag;
 
-    // Add a remove button for each selected tag
+// Adding a remove button for each selected tag
     const removeButton = document.createElement("button");
     removeButton.textContent = "✕";
     removeButton.classList.add("remove-tag");
@@ -268,12 +357,12 @@ function handleTagSelection() {
   // If newSelectedTag is not present, push it into the selectedTags array
   if (!isTagPresent) {
     selectedTags.push(tagNew);
-    // console.log(tagNew);
   }
-  // console.log(selectedTags);
+
 
   displaySelectedTags(selectedTags);
 }
+
 // Function to remove a selected tag
 function removeSelectedTag(tag) {
   const tagDropdown = document.getElementById("tagDropdown");
@@ -300,15 +389,15 @@ function addNewTag() {
   }
 }
 
-// Event listener for the "Add New Tag" button
+// Event listeners for the tag
 const addNewTagButton = document.getElementById("addNewTagButton");
 addNewTagButton.addEventListener("click", addNewTag);
 
-// Event listener for the tag dropdown selection change
+
 const tagDropdown = document.getElementById("tagDropdown");
 tagDropdown.addEventListener("change", handleTagSelection);
 
-// Initial setup: Load tags from localStorage, if available
+// Fetching tags from localStorage, if available
 const storedTags = localStorage.getItem("tags");
 if (storedTags) {
   tags = JSON.parse(storedTags);
@@ -318,56 +407,11 @@ if (storedTags) {
 renderTagDropdown();
 handleTagSelection();
 
-function fetchData() {
-
-  fetch('https://jsonplaceholder.typicode.com/todos')
-    .then(response => response.json())
-    .then(data => {
-      data.forEach(task => {
-        todosCount += 1;
-        let newTodo = {
-          name: task['title'],
-          id: todosCount,
-          isComplete: false,
-          Category: "All",
-          Priority: "Low",
-          DueDate: "",
-          Tags: [],
-          SubTasks: [],
-          ReminderTime: 0,
-        };
-        tasks.push(newTodo);
-      })
-      updateTaskList();
-
-    })
-    .catch(error => {
-      console.log('Error:', error);
-    });
-  hasFetchedData = true;
-  updateLocalStorage();
-
-}
 
 
-function getTodoListFromLocalStorage() {
-  let stringifiedTodoList = localStorage.getItem("todoList");
-  let parsedTodoList = JSON.parse(stringifiedTodoList);
-  if (parsedTodoList === null) {
 
-    return [];
-  } else {
 
-    return parsedTodoList;
-  }
-}
-
-tasks = getTodoListFromLocalStorage();
-let todosCount = tasks.length;
-if (!tasks.length && !hasFetchedData) {
-  fetchData();
-}
-
+///////Search functionality to search in task name, task tags,task's subtasks 
 
 function removeSpaces(text) {
   return text.replace(/\s/g, "").toLowerCase();
@@ -401,6 +445,9 @@ searchButton.addEventListener("click", () => {
 });
 
 
+
+//Function to extract due date from the task name itself if not provided.Searching regular expressions like X days, tomorrow 
+
 function formatDate(date) {
   const day = String(date.getDate()).padStart(2, "0");
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -413,7 +460,7 @@ function formatDate(date) {
 function parseDueDate(todoText) {
   const today = new Date();
 
-  // Check for patterns like "tomorrow" or "x days from now"
+
   const tomorrowPattern = /tomorrow/i;
   const daysFromNowPattern = /(\d+)\s*days?/i;
 
@@ -455,41 +502,44 @@ function parseDueDate(todoText) {
 
 
 
-// Function to handle drag start event
+////Functions for dragging a complete task div over other task
+
+
 function handleDragStart(event) {
   event.dataTransfer.setData("text/plain", event.target.dataset.taskId);
 
 }
 
-// Function to handle drag over event
+
 function handleDragOver(event) {
   event.preventDefault();
 }
 
-// Function to handle drop event
-// Function to handle drop event
+
 function handleDrop(event) {
   event.preventDefault();
   const taskId = event.dataTransfer.getData("text/plain");
   const droppedElement = document.querySelector(`[data-task-id="${taskId}"]`);
   const targetElement = event.target.closest("[data-task-id]");
-
+  // console.log(droppedElement);
+  // console.log(targetElement);
+  // inserting only on outer div element not on its child
   if (droppedElement && targetElement && droppedElement !== targetElement) {
     const parentElement = targetElement.parentElement;
     const boundingRect = targetElement.getBoundingClientRect();
 
     if (event.clientY < boundingRect.top + boundingRect.height / 2) {
-      // Move the target element above the dropped element
+      
       parentElement.insertBefore(droppedElement, targetElement);
     } else {
-      // Move the target element below the dropped element
+     
       parentElement.insertBefore(droppedElement, targetElement.nextElementSibling);
     }
   }
 }
 
 
-// Function to handle drag end event and remove the "dragging" class
+
 function handleDragEnd(event) {
   event.target.classList.remove("dragging");
 }
@@ -501,6 +551,8 @@ taskList.addEventListener("dragend", handleDragEnd);
 
 
 
+
+//Adding a New Task Functionality
 function addTask() {
   const taskName = taskInput.value.trim();
   const categoryDropdown = document.getElementById("categoryDropdown");
@@ -514,14 +566,18 @@ function addTask() {
   if (dueDate === "") {
     dueDate = dueDatefromtext;
   }
+  if (dueDate === null) {
+    dueDate = "";
+  }
 
   taskName.replace(/(tomorrow)|(\d+\s*days?(?=\s+from\s+now))|(\d{1,2}(?:st|nd|rd|th)?\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{4}\s+\d{1,2}\s*(am|pm)?)/gi, "").trim();
 
   if (taskName !== '') {
     todosCount += 1;
     var taskId = todosCount;
+    var UniqueId = generateUniqueID();
     var task = {
-      id: taskId,
+      id: UniqueId,
       name: taskName,
       isComplete: false,
       Category: category,
@@ -545,7 +601,7 @@ function addTask() {
   dueDateInput.value = "";
 }
 
-
+//Deleting a existing Task using its id
 function deleteTask(taskId) {
 
   const taskIndex = tasks.findIndex(task => task.id === taskId);
@@ -557,7 +613,7 @@ function deleteTask(taskId) {
   }
 }
 
-// Function to update the task list on the screen
+// Function to update the date on the main screen
 
 function updateDate() {
   const today = new Date();
@@ -566,7 +622,7 @@ function updateDate() {
   dateElement.textContent = formattedDate;
 }
 
-// Add event listeners
+// Adding event listeners to add button and if someone press enter on the input box itself
 addButton.addEventListener('click', addTask);
 taskInput.addEventListener('keydown', event => {
   if (event.key === 'Enter') {
@@ -575,6 +631,7 @@ taskInput.addEventListener('keydown', event => {
 });
 
 
+//Function to render Subtask for a particular task on press of down arrow button
 function renderSubtasks(taskId) {
   const task = tasks.find(task => task.id === taskId);
   if (!task) return;
@@ -683,21 +740,21 @@ function renderSubtasks(taskId) {
   }
 }
 
+//Function to add reminder to a particulr task
+
 
 function handleNotifyButtonClick(taskId) {
   const task = tasks.find(task => task.id === taskId);
   const reminderTimeInMinutes = prompt("Enter reminder time in minutes:");
 
-  // Validate the input and convert to a number
+ 
   const minutes = parseInt(reminderTimeInMinutes);
   if (!isNaN(minutes) && minutes >= 0) {
-    // Store the reminder time in the task object
     task.ReminderTime = minutes;
     updateLocalStorage();
-    // Schedule the reminder alert after the specified time
     setTimeout(() => {
       alert(`Reminder for task: ${task.name}`);
-    }, minutes * 60000); // Convert minutes to milliseconds
+    }, minutes * 60000); 
   } else {
     alert("Invalid input. Please enter a valid positive number of minutes.");
   }
@@ -713,7 +770,7 @@ function createNotifyButton(taskId) {
 }
 
 
-
+//Updating the task list and rendering it on dynamically
 function updateTaskList(taskArr = tasks) {
 
   taskList.innerHTML = '';
