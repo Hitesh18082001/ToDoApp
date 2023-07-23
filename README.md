@@ -6,6 +6,7 @@ Cogoport Training Assignment TODO-APP
 * You can use this website as your task management app
 ### Adding A New Todo
 * You can find an input box on the top to write the name of the task.
+* Due Date will be automatically extracted from the task if you use words like "completed by tomorrow" or "next ten days".
 * Below this, you have a dropdown menu to add category, Priority, and Due Date.
 * Below is a list of tags you can add to your task for better management of tasks. You can add a new tag to this list by clicking on the add new tag button, and once you add a new tag to this list, this tag will be stored, and when you add a new task next time, you will have the option to choose those previously added tags. You can choose multiple tags, and once a tag is selected, it will be shown below this list with a cross button to remove it.
 ### Search by keywords
