@@ -17,3 +17,11 @@ Cogoport Training Assignment TODO-APP
 * You can see logs like missed, pending and completed tasks.
 ### Number Of Tasks
 * You have a container in which the today's date is shown. Below it you can find the number of tasks that are on screen. If there is any filter on the tasks then this number will change to all those tasks which comes under that filter.
+### Task Container
+* You can see the list of all the tasks.
+* Every task name is shown. Only the first 40 letters of taskname will be shown.
+* you have a down arrow button. On clicking this button the subtasks menu will expanded.
+* There is notify button to add a reminder. On clicking this you get a prompt to enter the number of minutes after which you want the reminder.
+* There is edit button to edit the name of that particular task.
+* There is delete button to delete this particular task from the task list.
+* There is Pending/Complete button to change the status of a task.  
