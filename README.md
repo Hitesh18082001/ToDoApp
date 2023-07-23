@@ -12,4 +12,8 @@ Cogoport Training Assignment TODO-APP
 * There is an option to search a particular task by name or keywords from the name or tags or subtasks. All those tasks which have that keyword will be renderedd on the screen
 ### Filters, Sorts and Logs 
 * There is an option to add filter to tasks. You can filter the tasks based on the category, priority and Due Date. On click of the add filter button all those tasks which satisfies the filter options will be rendered.
-* On the left side of add filter button, there is button to remove filter and all the tasks will be rendered to the screen. 
+* On the left side of add filter button, there is button to remove filter and all the tasks will be rendered to the screen.
+* You can sort the tasks accroding to date and priority.
+* You can see logs like missed, pending and completed tasks.
+### Number Of Tasks
+* You have a container in which the today's date is shown. Below it you can find the number of tasks that are on screen. If there is any filter on the tasks then this number will change to all those tasks which comes under that filter.
